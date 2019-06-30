@@ -24,6 +24,7 @@ export default {
   padding 0
 html
   font-size 20px
+  font-family fMain, sans-serif
   background-color cDark
   color cLight
 #app 
