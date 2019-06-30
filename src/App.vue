@@ -1,16 +1,31 @@
 <template>
   <div id="app">
     <router-view/>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/addSource">Dodaj źródło</router-link>
-    </div>
+    <Navbar />
   </div>
 </template>
 
+<script>
+import Navbar from '@/components/Navbar';
+
+export default {
+  components: {
+    Navbar,
+  }
+}
+</script>
+
 <style lang="stylus">
+@import './styles/variables.styl'
+
 *
   box-sizing border-box
+  margin 0
+  padding 0
 html
   font-size 20px
+  background-color cDark
+  color cLight
+#app 
+  margin-bottom 4.2rem
 </style>
