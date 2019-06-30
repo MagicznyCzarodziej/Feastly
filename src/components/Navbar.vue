@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div v-if="!$route.meta.hideNavbar" class="navbar">
     <div class="navbar__icon">
       <router-link class="navbar__link" to="addSource">
         <svg class="navbar__icon__svg">
