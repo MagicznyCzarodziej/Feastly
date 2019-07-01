@@ -16,4 +16,4 @@ mongoose.connect(config.mongodb.URL, { useNewUrlParser: true });
 
 app.listen(config.express.PORT, () => {
   console.log('Listening');
-})
+});
