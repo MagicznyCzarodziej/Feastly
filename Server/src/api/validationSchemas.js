@@ -27,4 +27,13 @@ const registrationSchema = {
   },
 };
 
-export { registrationSchema };
+const loginSchema = {
+  username: {
+    in: 'body',
+  },
+  password: {
+    in: 'body',
+  }
+}
+
+export { registrationSchema, loginSchema };
