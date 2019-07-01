@@ -1,9 +1,8 @@
-import AuthService from '../../services/AuthService';
+import AuthService from '../../services/auth';
 
 export default (app) => {
   app.post('/register', async (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body);
 
     try {
       const userId = await AuthService.register({ username, password });

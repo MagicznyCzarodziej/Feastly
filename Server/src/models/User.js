@@ -24,7 +24,7 @@ UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
 UserSchema.methods.register = async function register(credentials) {
   this.authentication.username = credentials.username;
-  this.authentication.passwordHash = credentials.password;
+  this.authentication.passwordHash = credentials.passwordHash;
 
   await this.save();
 
