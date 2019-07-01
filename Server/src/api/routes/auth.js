@@ -21,7 +21,7 @@ export default (app) => {
     const { username, password } = req.body;
     try {
       const user = await AuthService.register({ username, password });
-      res.status(400).send({
+      res.status(200).send({
         data: { user },
       });
     } catch (error) {
