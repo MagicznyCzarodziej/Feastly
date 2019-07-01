@@ -5,11 +5,9 @@ export default (app) => {
     const { username, password } = req.body;
 
     try {
-      const userId = await AuthService.register({ username, password });
+      const user = await AuthService.register({ username, password });
       res.status(400).send({
-        data: {
-          userId,
-        },
+        data: { user },
       });
     } catch (error) {
       res.status(409).send({

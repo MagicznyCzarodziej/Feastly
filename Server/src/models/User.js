@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
+UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
 UserSchema.methods.register = async function register(credentials) {
   this.authentication.username = credentials.username;
@@ -28,7 +28,10 @@ UserSchema.methods.register = async function register(credentials) {
 
   await this.save();
 
-  return this._id;
+  return {
+    username: this.authentication.username,
+    userId: String(this._id),
+  };
 };
 
 export default mongoose.model('User', UserSchema);
