@@ -15,6 +15,11 @@ export default {
     RegisterForm,
     Error,
   },
+  provide() {
+    return {
+      $validator: this.$validator,
+    };
+  },
 };
 </script>
 

@@ -17,7 +17,11 @@
         v-model="password"
         v-validate="'required|alpha_num|min:6'"
       >
-      <input type="submit" class="register-form__submit" value="ZAŁÓŻ KONTO">
+      <input type="submit"
+        class="register-form__submit"
+        value="ZAŁÓŻ KONTO"
+        :disabled="errors.any()"
+      >
     </form>
   </div>
 </template>
@@ -25,11 +29,18 @@
 <script>
 export default {
   name: 'RegisterForm',
+  data() {
+    return {
+      username: null,
+      password: null,
+    };
+  },
   methods: {
     handleSubmit() {
 
     },
   },
+  inject: ['$validator'],
 };
 </script>
 
