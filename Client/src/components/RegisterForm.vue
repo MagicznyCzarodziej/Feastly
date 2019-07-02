@@ -46,6 +46,12 @@ export default {
           username: this.username,
           password: this.password,
         });
+        const { user } = response.data.data;
+        localStorage.setItem('auth_token', user.token);
+        this.$store.dispatch('login', user.username);
+        this.username = null;
+        this.password = null;
+        this.$router.push('/');
       } catch (error) {
         const { code } = error.response.data.error;
         console.error(code);
@@ -71,12 +77,6 @@ export default {
             break;
         }
       }
-      this.username = null;
-      this.password = null;
-      /** TODO:
-       * Save token and userId in Vuex store
-       */
-      this.$router.push('/');
     },
   },
   inject: ['$validator'],
