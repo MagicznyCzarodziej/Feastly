@@ -1,7 +1,9 @@
 <template>
   <transition name="slide">
-    <div v-if="error.message" class="error">
-      <span class="error__message">{{ error.message }}</span>
+    <div v-if="errors.any()" class="error">
+      <span v-for="error in errors.all()" :key="error.id" class="error__message">
+        {{ error }} <br>
+      </span>
     </div>
   </transition>
 </template>
@@ -9,12 +11,7 @@
 <script>
 export default {
   name: 'Error',
-  props: {
-    error: {
-      type: Object,
-      required: true,
-    },
-  },
+  inject: ['$validator'],
 };
 </script>
 
