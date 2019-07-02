@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <Error />
     <div class="login__logo">FEASTLY</div>
     <LoginForm />
   </div>
@@ -7,10 +8,17 @@
 
 <script>
 import LoginForm from '@/components/LoginForm';
+import Error from '@/components/Error';
 
 export default {
   components: {
     LoginForm,
+    Error,
+  },
+  provide() {
+    return {
+      $validator: this.$validator,
+    };
   },
 };
 </script>

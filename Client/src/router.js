@@ -11,11 +11,13 @@ export default new Router({
     {
       path: '/',
       name: 'home',
+      meta: { auth: true },
       component: Home,
     },
     {
       path: '/addSource',
       name: 'AddSource',
+      meta: { auth: true },
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
