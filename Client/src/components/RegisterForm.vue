@@ -8,6 +8,7 @@
         placeholder="Nazwa użytkownika"
         v-model="username"
         v-validate="'required|alpha_num|min:6'"
+        @focus="errors.remove('auth')"
       >
       <input
         class="register-form__input"
@@ -16,6 +17,7 @@
         placeholder="Hasło"
         v-model="password"
         v-validate="'required|alpha_num|min:6'"
+        @focus="errors.remove('auth')"
       >
       <input type="submit"
         class="register-form__submit"
@@ -27,6 +29,8 @@
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
+
 export default {
   name: 'RegisterForm',
   data() {
@@ -36,8 +40,43 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
+      try {
+        const response = await AuthService.register({
+          username: this.username,
+          password: this.password,
+        });
+      } catch (error) {
+        const { code } = error.response.data.error;
+        console.error(code);
 
+        switch (code) {
+          case 'USERNAME_ALREADY_EXISTS':
+            this.errors.add({
+              field: 'auth',
+              msg: 'Użytkownik o tej nazwie już istnieje',
+            });
+            break;
+          case 'FIELDS_VALIDATION_ERROR':
+            this.errors.add({
+              field: 'auth',
+              msg: 'Nieprawidłowa nazwa użytkownika lub hasło',
+            });
+            break;
+          default:
+            this.errors.add({
+              field: 'auth',
+              msg: 'Nieoczekiwany błąd',
+            });
+            break;
+        }
+      }
+      this.username = null;
+      this.password = null;
+      /** TODO:
+       * Save token and userId in Vuex store
+       */
+      this.$router.push('/');
     },
   },
   inject: ['$validator'],
