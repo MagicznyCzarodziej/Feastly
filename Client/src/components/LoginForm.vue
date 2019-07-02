@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { log } from 'util';
 export default {
   name: 'LoginForm',
   methods: {
@@ -19,7 +18,7 @@ export default {
 
     },
   },
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -49,7 +48,7 @@ export default {
     font-size 1.2rem
   &:focus
     outline none
-    box-shadow 0 0.4rem 0.3rem -0.3rem rgba(255, 255, 255, 0.3) 
+    box-shadow 0 0.4rem 0.3rem -0.3rem rgba(255, 255, 255, 0.3)
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus
@@ -62,6 +61,7 @@ export default {
   background-color transparent
   border none
   font-size 1.4rem
+  font-family fMain
   text-align center
   color cLight
   cursor pointer

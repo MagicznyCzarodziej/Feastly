@@ -17,14 +17,13 @@
         <use xlink:href="@/assets/icons/feather-sprite.svg#search"/>
       </svg>
     </div>
-    
   </div>
 </template>
 
 <script>
 export default {
   name: 'Navbar',
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -36,7 +35,7 @@ export default {
   background-color #111
   position fixed
   bottom 0
-  display grid 
+  display grid
   grid-template-columns auto auto auto
   box-shadow 0 0rem 0.2rem rgba(0, 0, 0, 0.3);
 .navbar__icon

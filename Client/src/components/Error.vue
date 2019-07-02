@@ -13,9 +13,9 @@ export default {
     error: {
       type: Object,
       required: true,
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -28,7 +28,7 @@ export default {
   background-color cErrorBg
   padding 0.6rem
   box-shadow 0 0 0.1rem cErrorBg
-.error__message  
+.error__message
   word-break break-word
 .slide-enter-active, .slide-leave-active
   transition top .5s

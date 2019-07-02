@@ -11,8 +11,8 @@ import Navbar from '@/components/Navbar';
 export default {
   components: {
     Navbar,
-  }
-}
+  },
+};
 </script>
 
 <style lang="stylus">
@@ -27,6 +27,6 @@ html
   font-family fMain, sans-serif
   background-color cDark
   color cLight
-#app 
+#app
   margin-bottom 4.2rem
 </style>
