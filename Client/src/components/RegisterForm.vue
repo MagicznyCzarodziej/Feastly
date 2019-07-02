@@ -24,6 +24,8 @@
         value="ZAŁÓŻ KONTO"
         :disabled="errors.any()"
       >
+      <br>
+      <router-link to="login" class="register-form__login">Mam już konto</router-link>
     </form>
   </div>
 </template>
@@ -133,4 +135,9 @@ export default {
     outline none
   &:active
     transform translateY(-0.2rem)
+.register-form__login
+  display inline-block
+  margin-top 2rem
+  color cLight
+  font-size 0.8rem
 </style>
