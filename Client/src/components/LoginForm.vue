@@ -1,8 +1,22 @@
 <template>
   <div>
     <form class="login-form" @submit.prevent="handleSubmit">
-      <input class="login-form__input" type="text" name="username" placeholder="Nazwa użytkownika">
-      <input class="login-form__input" type="password" name="password" placeholder="Hasło">
+      <input
+        class="login-form__input"
+        type="text"
+        name="username"
+        placeholder="Nazwa użytkownika"
+        v-model="username"
+        @focus="errors.remove('auth')"
+        >
+      <input
+        class="login-form__input"
+        type="password"
+        name="password"
+        placeholder="Hasło"
+        v-model="password"
+        @focus="errors.remove('auth')"
+      >
       <input type="submit" class="login-form__submit" value=ZALOGUJ>
       <br>
       <router-link to="register" class="login-form__register">Nie mam jeszcze konta</router-link>
@@ -11,13 +25,59 @@
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
+
 export default {
   name: 'LoginForm',
+  data() {
+    return {
+      username: null,
+      password: null,
+    };
+  },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
+      try {
+        const response = await AuthService.login({
+          username: this.username,
+          password: this.password,
+        });
+        
+        const { user } = response.data.data;
+        console.log(user);
+        localStorage.setItem('auth_token', user.token);
+        this.$store.dispatch('login', user.username);
+        this.username = null;
+        this.password = null;
+        this.$router.push('/');
+      } catch (error) {
+        const { code } = error.response.data.error;
+        console.error(code);
 
+        switch (code) {
+          case 'USERNAME_OR_PASSWORD_INVALID':
+            this.errors.add({
+              field: 'auth',
+              msg: 'Nieprawidłowa nazwa uzytkownika lub hasło',
+            });
+            break;
+          case 'FIELDS_VALIDATION_ERROR':
+            this.errors.add({
+              field: 'auth',
+              msg: 'Podaj nazwę użytkownika i hasło',
+            });
+            break;
+          default:
+            this.errors.add({
+              field: 'auth',
+              msg: 'Nieoczekiwany błąd',
+            });
+            break;
+        }
+      }
     },
   },
+  inject: ['$validator'],
 };
 </script>
 
