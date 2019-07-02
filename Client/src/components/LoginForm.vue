@@ -42,9 +42,8 @@ export default {
           username: this.username,
           password: this.password,
         });
-        
+
         const { user } = response.data.data;
-        console.log(user);
         localStorage.setItem('auth_token', user.token);
         this.$store.dispatch('login', user.username);
         this.username = null;

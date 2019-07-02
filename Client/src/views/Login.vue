@@ -9,6 +9,7 @@
 <script>
 import LoginForm from '@/components/LoginForm';
 import Error from '@/components/Error';
+import store from '@/store';
 
 export default {
   components: {
@@ -19,6 +20,10 @@ export default {
     return {
       $validator: this.$validator,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    if (store.getters.isLoggedIn) next('/');
+    next();
   },
 };
 </script>
