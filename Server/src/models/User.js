@@ -1,6 +1,7 @@
+/* eslint-disable func-names */
 import mongoose from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import FeedSchema from './Feed';
+import FeedSchema from './FeedSchema';
 
 const UserSchema = new mongoose.Schema({
   authentication: {
@@ -22,7 +23,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
-UserSchema.methods.register = async function register(credentials) {
+UserSchema.methods.register = async function (credentials) {
   this.authentication.username = credentials.username;
   this.authentication.passwordHash = credentials.passwordHash;
 
@@ -30,8 +31,12 @@ UserSchema.methods.register = async function register(credentials) {
 
   return {
     username: this.authentication.username,
-    userId: String(this._id),
+    userId: this._id,
   };
+};
+
+UserSchema.statics.getAllFeeds = function (userId) {
+  return this.findOne({ _id: mongoose.Types.ObjectId(userId) }, { data: 1 });
 };
 
 export default mongoose.model('User', UserSchema);

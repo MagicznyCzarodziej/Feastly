@@ -19,25 +19,36 @@ async function register(credentials) {
 
   const result = await user.register({ username: credentials.username, passwordHash });
 
-  const token = generateJWT(result.userId);
+  const token = generateJWT({ userId: result.userId });
   return { ...result, token };
 }
 
 async function login(credentials) {
   // Find user by username
-  const user = await UserModel.findOne({ 'authentication.username': credentials.username }, { data: 0 });
+  const user = await UserModel.findOne({
+    'authentication.username': credentials.username,
+  }, { data: 0 });
+
   if (!user) throw new Error('User doesn\'t exist');
 
   // Check if password is correct
-  const isPasswordValid = await bcrypt.compare(credentials.password, user.authentication.passwordHash);
+  const isPasswordValid = await bcrypt.compare(
+    credentials.password,
+    user.authentication.passwordHash,
+  );
   if (!isPasswordValid) throw new Error('Invalid password');
-  
-  const token = generateJWT(String(user._id));
-  return { 
+
+  const token = generateJWT({ userId: user._id });
+  return {
     userId: user._id,
     username: user.authentication.username,
-    token
+    token,
   };
 }
 
-export default { register, login };
+async function auth(token) {
+  const user = await jwt.verify(token, config.auth.JWT_SECRET);
+  return user.userId;
+}
+
+export default { register, login, auth };
