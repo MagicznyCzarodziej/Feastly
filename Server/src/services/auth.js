@@ -19,7 +19,7 @@ async function register(credentials) {
 
   const result = await user.register({ username: credentials.username, passwordHash });
 
-  const token = generateJWT(result.userId);
+  const token = generateJWT({ userId: result.userId });
   return { ...result, token };
 }
 
@@ -32,7 +32,7 @@ async function login(credentials) {
   const isPasswordValid = await bcrypt.compare(credentials.password, user.authentication.passwordHash);
   if (!isPasswordValid) throw new Error('Invalid password');
   
-  const token = generateJWT(String(user._id));
+  const token = generateJWT({ userId: user._id });
   return { 
     userId: user._id,
     username: user.authentication.username,
@@ -40,4 +40,9 @@ async function login(credentials) {
   };
 }
 
-export default { register, login };
+async function auth(token) {
+  const user = await jwt.verify(token, config.auth.JWT_SECRET);
+  return user.userId;
+}
+
+export default { register, login, auth };
