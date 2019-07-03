@@ -25,18 +25,24 @@ async function register(credentials) {
 
 async function login(credentials) {
   // Find user by username
-  const user = await UserModel.findOne({ 'authentication.username': credentials.username }, { data: 0 });
+  const user = await UserModel.findOne({
+    'authentication.username': credentials.username,
+  }, { data: 0 });
+
   if (!user) throw new Error('User doesn\'t exist');
 
   // Check if password is correct
-  const isPasswordValid = await bcrypt.compare(credentials.password, user.authentication.passwordHash);
+  const isPasswordValid = await bcrypt.compare(
+    credentials.password,
+    user.authentication.passwordHash,
+  );
   if (!isPasswordValid) throw new Error('Invalid password');
-  
+
   const token = generateJWT({ userId: user._id });
-  return { 
+  return {
     userId: user._id,
     username: user.authentication.username,
-    token
+    token,
   };
 }
 

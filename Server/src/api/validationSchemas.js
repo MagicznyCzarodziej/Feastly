@@ -33,7 +33,7 @@ const loginSchema = {
   },
   password: {
     in: 'body',
-  }
-}
+  },
+};
 
 export { registrationSchema, loginSchema };

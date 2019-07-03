@@ -12,11 +12,11 @@ export default (app) => {
         error: {
           code: 'FIELDS_VALIDATION_ERROR',
           message: 'One or more fields raised validation errors',
-        }
+        },
       });
       return;
     }
-    
+
     // If credentials OK, proceed to registration
     const { username, password } = req.body;
     try {
@@ -43,7 +43,7 @@ export default (app) => {
         error: {
           code: 'FIELDS_VALIDATION_ERROR',
           message: 'One or more fields raised validation errors',
-        }
+        },
       });
       return;
     }
@@ -59,7 +59,7 @@ export default (app) => {
         error: {
           code: 'USERNAME_OR_PASSWORD_INVALID',
           message: 'Username or password is invalid',
-        }
+        },
       });
     }
   });
