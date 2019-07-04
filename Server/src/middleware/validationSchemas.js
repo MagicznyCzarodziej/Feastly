@@ -1,9 +1,6 @@
 const registrationSchema = {
   username: {
     in: 'body',
-    isString: {
-      errorMessage: 'Username must be a string',
-    },
     isAlphanumeric: {
       errorMessage: 'Username must be alphanumeric',
     },
@@ -14,9 +11,6 @@ const registrationSchema = {
   },
   password: {
     in: 'body',
-    isString: {
-      errorMessage: 'Password must be a string',
-    },
     isAlphanumeric: {
       errorMessage: 'Password must be alphanumeric',
     },
@@ -36,4 +30,28 @@ const loginSchema = {
   },
 };
 
-export { registrationSchema, loginSchema };
+const feedSchema = {
+  'feed.name': {
+    in: 'body',
+    trim: true,
+    isLength: {
+      errorMessage: 'Name cannot be empty',
+      options: { min: 1 },
+    },
+    escape: true,
+  },
+  'feed.url': {
+    in: 'body',
+    isURL: {
+      errorMessage: 'Feed URL must be valid URL',
+    },
+  },
+  'feed.category': {
+    in: 'body',
+    optional: true,
+    trim: true,
+    escape: true,
+  },
+};
+
+export { registrationSchema, loginSchema, feedSchema };

@@ -1,23 +1,8 @@
-import { checkSchema, validationResult } from 'express-validator';
 import AuthService from '../../services/auth';
-import { registrationSchema, loginSchema } from '../validationSchemas';
+import { LoginValidator, RegisterValidator } from '../../middleware/validators';
 
 export default (app) => {
-  app.post('/register', checkSchema(registrationSchema), async (req, res) => {
-    // Credentials validation
-    try {
-      validationResult(req).throw();
-    } catch (error) {
-      res.status(422).send({
-        error: {
-          code: 'FIELDS_VALIDATION_ERROR',
-          message: 'One or more fields raised validation errors',
-        },
-      });
-      return;
-    }
-
-    // If credentials OK, proceed to registration
+  app.post('/register', RegisterValidator, async (req, res) => {
     const { username, password } = req.body;
     try {
       const user = await AuthService.register({ username, password });
@@ -34,20 +19,7 @@ export default (app) => {
     }
   });
 
-  app.post('/login', checkSchema(loginSchema), async (req, res) => {
-    // Check if credentials aren't missing
-    try {
-      validationResult(req).throw();
-    } catch (error) {
-      res.status(422).send({
-        error: {
-          code: 'FIELDS_VALIDATION_ERROR',
-          message: 'One or more fields raised validation errors',
-        },
-      });
-      return;
-    }
-    // If fields are OK, proceed to login
+  app.post('/login', LoginValidator, async (req, res) => {
     const { username, password } = req.body;
     try {
       const user = await AuthService.login({ username, password });
