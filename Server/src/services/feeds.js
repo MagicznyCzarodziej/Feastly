@@ -5,4 +5,9 @@ async function getAllFeeds(userId) {
   return result.data.feeds;
 }
 
-export default { getAllFeeds };
+async function addFeed(arg) {
+  const result = await UserModel.addFeed(arg.userId, arg.feed);
+  return result;
+}
+
+export default { getAllFeeds, addFeed };
