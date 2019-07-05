@@ -10,3 +10,8 @@ export default {
   name: 'home',
 };
 </script>
+
+<style lang="stylus">
+.home
+  overflow-y scroll
+</style>

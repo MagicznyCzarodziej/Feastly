@@ -1,11 +1,9 @@
 <template>
-  <div v-if="!$route.meta.hideNavbar" class="navbar">
-    <div class="navbar__icon">
-      <router-link class="navbar__link" to="addSource">
-        <svg class="navbar__icon__svg">
-          <use xlink:href="@/assets/icons/feather-sprite.svg#plus"/>
-        </svg>
-      </router-link>
+  <div v-if="!$route.meta.hideInterface" class="navbar">
+    <div class="navbar__icon" @click="$emit('toggle-sidemenu')">
+      <svg class="navbar__icon__svg">
+        <use xlink:href="@/assets/icons/feather-sprite.svg#menu"/>
+      </svg>
     </div>
     <div class="navbar__icon">
       <svg class="navbar__icon__svg">

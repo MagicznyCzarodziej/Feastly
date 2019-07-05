@@ -26,13 +26,13 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      meta: { hideNavbar: true },
+      meta: { hideInterface: true },
       component: () => import('./views/Login.vue'),
     },
     {
       path: '/register',
       name: 'Register',
-      meta: { hideNavbar: true },
+      meta: { hideInterface: true },
       component: () => import('./views/Register.vue'),
     },
   ],

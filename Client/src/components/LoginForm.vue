@@ -45,6 +45,7 @@ export default {
 
         const { user } = response.data.data;
         localStorage.setItem('auth_token', user.token);
+        localStorage.setItem('username', user.username);
         this.$store.dispatch('login', user.username);
         this.username = null;
         this.password = null;
