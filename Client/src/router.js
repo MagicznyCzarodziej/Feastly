@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home';
+import Login from './views/Login';
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
       name: 'Register',
       meta: { hideInterface: true },
       component: () => import('./views/Register.vue'),
+    },
+    {
+      path: '*',
+      name: '404',
+      component: Login,
     },
   ],
 });
