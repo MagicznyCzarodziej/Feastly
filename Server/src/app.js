@@ -1,3 +1,5 @@
+import '@babel/polyfill';
+
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyparser from 'body-parser';
