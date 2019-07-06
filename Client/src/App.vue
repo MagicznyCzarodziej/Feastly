@@ -45,6 +45,7 @@ export default {
   margin 0
   padding 0
 html
+  user-select()
   font-size 20px
   font-family fMain, sans-serif
   background-color cDark
