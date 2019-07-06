@@ -1,26 +1,25 @@
 <template>
   <div v-if="!$route.meta.hideInterface" class="navbar">
     <div class="navbar__icon" @click="$emit('toggle-sidemenu')">
-      <svg class="navbar__icon__svg">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#menu"/>
-      </svg>
+      <FeatherIcon class="navbar__icon__svg" :icon="'menu'"/>
     </div>
     <div class="navbar__icon navbar__icon--main">
-      <svg class="navbar__icon__svg">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#hash"/>
-      </svg>
+      <FeatherIcon class="navbar__icon__svg" :icon="'hash'"/>
     </div>
     <div class="navbar__icon">
-      <svg class="navbar__icon__svg">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#search"/>
-      </svg>
+      <FeatherIcon class="navbar__icon__svg" :icon="'search'"/>
     </div>
   </div>
 </template>
 
 <script>
+import FeatherIcon from '@/components/FeatherIcon';
+
 export default {
   name: 'Navbar',
+  components: {
+    FeatherIcon,
+  },
 };
 </script>
 
