@@ -69,6 +69,7 @@ export default {
   top 0
   left 0
   padding 0.5rem 0
+  box-shadow 0 0 0.3rem rgba(0, 0, 0, 0.3)
   display flex
   flex-direction column
   transition-duration 0.3s
