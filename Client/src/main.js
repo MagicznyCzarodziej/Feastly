@@ -10,6 +10,15 @@ Vue.config.productionTip = false;
 
 Vue.use(VeeValidate, { dictionary, locale: 'pl' });
 
+// 404 error hangler
+router.beforeEach((to, from, next) => {
+  if (!to.matched.length) {
+    next('/');
+  } else {
+    next();
+  }
+});
+
 router.beforeEach((to, from, next) => {
   if (to.meta.auth && !store.getters.isLoggedIn) next('/login');
   else next();

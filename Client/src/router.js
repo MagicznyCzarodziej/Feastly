@@ -36,10 +36,5 @@ export default new Router({
       meta: { hideInterface: true },
       component: () => import('./views/Register.vue'),
     },
-    {
-      path: '*',
-      name: '404',
-      component: Login,
-    },
   ],
 });
