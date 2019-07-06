@@ -5,42 +5,30 @@
     v-bind:class="{ 'side-menu--hidden': !this.$parent.showMenu}"
   >
     <router-link to="today" class="side-menu__item side-menu__link">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#feather"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'feather'" />
       <div>Dzisiaj</div>
     </router-link>
     <router-link to="readLater" class="side-menu__item side-menu__link">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#bookmark"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'bookmark'" />
       <div>Do przeczytania</div>
     </router-link>
     <div class="side-menu__separator">
       FEEDY
     </div>
     <router-link to="feeds" class="side-menu__item side-menu__link">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#menu"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'menu'" />
       <div>Wszystkie</div>
     </router-link>
     <div to="" class="side-menu__item side-menu__link">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#chevron-right"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'chevron-right'" />
       <div>Nauka</div>
     </div>
     <div to="" class="side-menu__item side-menu__link">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#chevron-right"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'chevron-right'" />
       <div>Kosmos</div>
     </div>
     <div to="" class="side-menu__item side-menu__link">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#chevron-right"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'chevron-right'" />
       <div>Technologia</div>
     </div>
     <router-link class="side-menu__item side-menu__button" to="addSource">
@@ -51,17 +39,20 @@
 
     <div class="side-menu__username">{{ $store.getters.username }}</div>
     <div class="side-menu__item side-menu__link" @click="$emit('logout')">
-      <svg class="side-menu__icon">
-        <use xlink:href="@/assets/icons/feather-sprite.svg#log-out"/>
-      </svg>
+      <FeatherIcon class="side-menu__icon" :icon="'log-out'" />
       <div>Wyloguj</div>
     </div>
   </div>
 </template>
 
 <script>
+import FeatherIcon from '@/components/FeatherIcon';
+
 export default {
   name: 'SideMenu',
+  components: {
+    FeatherIcon,
+  },
   data() {
     return {
     };
