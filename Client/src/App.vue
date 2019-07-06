@@ -1,7 +1,7 @@
 <template>
-  <div id="app" >
-    <router-view />
-    <Navbar v-on:toggle-sidemenu="showMenu = !showMenu"/>
+  <div id="app" v-touch:swipe.right="toggleMenu(true)" v-touch:swipe.left="toggleMenu(false)">
+    <router-view v-touch="toggleMenu(false)" @click="toggleMenu(false)"/>
+    <Navbar v-on:toggle-sidemenu="toggleMenu()"/>
     <SideMenu v-on:logout="logout"/>
   </div>
 </template>
@@ -27,6 +27,13 @@ export default {
     },
   },
   methods: {
+    toggleMenu(param = !this.showMenu) {
+      this.showMenu = param;
+      // Fallback for v-touch
+      return () => {
+        this.showMenu = param;
+      };
+    },
     logout() {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('username');
