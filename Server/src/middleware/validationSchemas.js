@@ -31,7 +31,7 @@ const loginSchema = {
 };
 
 const feedSchema = {
-  'feed.name': {
+  name: {
     in: 'body',
     trim: true,
     isLength: {
@@ -40,13 +40,13 @@ const feedSchema = {
     },
     escape: true,
   },
-  'feed.url': {
+  url: {
     in: 'body',
     isURL: {
       errorMessage: 'Feed URL must be valid URL',
     },
   },
-  'feed.category': {
+  category: {
     in: 'body',
     optional: true,
     trim: true,

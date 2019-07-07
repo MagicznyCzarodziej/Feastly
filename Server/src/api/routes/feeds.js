@@ -18,7 +18,11 @@ export default (app) => {
   app.post('/feeds', AuthMiddleware, FeedValidator, async (req, res) => {
     const arg = {
       userId: res.locals.userId,
-      feed: req.body.feed,
+      feed: {
+        url: req.body.url,
+        name: req.body.name,
+        category: req.body.category,
+      },
     };
     try {
       const feed = await FeedsService.addFeed(arg);
