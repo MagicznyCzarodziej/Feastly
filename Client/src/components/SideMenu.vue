@@ -13,24 +13,22 @@
       <div>Do przeczytania</div>
     </router-link>
     <div class="side-menu__separator">
-      FEEDY
+      ŹRÓDŁA
     </div>
-    <router-link to="feeds" class="side-menu__item side-menu__link">
+    <router-link to="sources" class="side-menu__item side-menu__link">
       <FeatherIcon class="side-menu__icon" :icon="'menu'" />
       <div>Wszystkie</div>
     </router-link>
-    <div to="" class="side-menu__item side-menu__link">
-      <FeatherIcon class="side-menu__icon" :icon="'chevron-right'" />
-      <div>Nauka</div>
-    </div>
-    <div to="" class="side-menu__item side-menu__link">
-      <FeatherIcon class="side-menu__icon" :icon="'chevron-right'" />
-      <div>Kosmos</div>
-    </div>
-    <div to="" class="side-menu__item side-menu__link">
-      <FeatherIcon class="side-menu__icon" :icon="'chevron-right'" />
-      <div>Technologia</div>
-    </div>
+    <router-link
+      v-for="category in categories"
+      :key="category"
+      :to="'sources?category=' +category"
+      class="side-menu__item side-menu__link"
+    >
+      <FeatherIcon class="side-menu__icon" :icon="'hash'" />
+      <div>{{ category }}</div>
+    </router-link>
+
     <router-link class="side-menu__item side-menu__button" to="addSource">
       Dodaj źródło
     </router-link>
@@ -46,6 +44,7 @@
 </template>
 
 <script>
+import FeedService from '@/services/FeedService';
 import FeatherIcon from '@/components/FeatherIcon';
 
 export default {
@@ -55,7 +54,12 @@ export default {
   },
   data() {
     return {
+      categories: [],
     };
+  },
+  async mounted() {
+    this.categories = await FeedService.getCategories();
+    this.categories.sort();
   },
 };
 </script>

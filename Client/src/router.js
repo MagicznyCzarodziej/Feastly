@@ -24,6 +24,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/AddSource.vue'),
     },
     {
+      path: '/sources',
+      name: 'Sources',
+      component: () => import('./views/Sources.vue'),
+    },
+    {
       path: '/login',
       name: 'Login',
       meta: { hideInterface: true },
