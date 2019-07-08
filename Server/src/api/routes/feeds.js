@@ -5,7 +5,8 @@ import { FeedValidator } from '../../middleware/validators';
 export default (app) => {
   // Get all user feeds
   app.get('/feeds', AuthMiddleware, async (req, res) => {
-    const feeds = await FeedsService.getAllFeeds(res.locals.userId);
+    const options = req.query;
+    const feeds = await FeedsService.getFeeds(res.locals.userId, options);
 
     res.status(200).send({
       data: {
@@ -48,7 +49,7 @@ export default (app) => {
         data: {
           categories,
         },
-      });      
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send({

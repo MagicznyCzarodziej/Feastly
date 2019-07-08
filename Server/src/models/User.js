@@ -35,8 +35,12 @@ UserSchema.methods.register = async function (credentials) {
   };
 };
 
-UserSchema.statics.getAllFeeds = function (userId) {
-  return this.findOne({ _id: mongoose.Types.ObjectId(userId) }, { data: 1 });
+UserSchema.statics.getFeeds = async function (userId, options) {
+  const result = await this.findOne({ _id: mongoose.Types.ObjectId(userId) }, { data: 1 });
+  if (Object.entries(options).length !== 0 && options.category) { // Category provided
+    return result.data.feeds.filter(feed => feed.category === options.category);
+  }
+  return result.data.feeds; // No options provided
 };
 
 UserSchema.statics.addFeed = async function (userId, feed) {
@@ -49,8 +53,9 @@ UserSchema.statics.addFeed = async function (userId, feed) {
 UserSchema.statics.getCategories = async function (userId) {
   const user = await this.findOne({ _id: mongoose.Types.ObjectId(userId) }, { data: 1 });
   const { feeds } = user.data;
-  const categories = [...new Set(feeds.map(feed => feed.category))];
-  return categories;
+  const categories = new Set(feeds.map(feed => feed.category));
+  categories.delete('');
+  return [...categories];
 };
 
 export default mongoose.model('User', UserSchema);
