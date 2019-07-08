@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-touch:swipe.right="toggleMenu(true)" v-touch:swipe.left="toggleMenu(false)">
-    <router-view v-touch="toggleMenu(false)" @click="toggleMenu(false)"/>
+    <router-view class="view" v-touch="toggleMenu(false)" @click="toggleMenu(false)"/>
     <Navbar v-on:toggle-sidemenu="toggleMenu()"/>
     <SideMenu v-on:logout="logout"/>
   </div>
@@ -64,4 +64,6 @@ body
   height 100%
   display grid
   grid-template-rows 1fr auto
+.view
+  overflow-y scroll
 </style>

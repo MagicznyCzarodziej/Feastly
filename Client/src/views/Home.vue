@@ -12,6 +12,5 @@ export default {
 </script>
 
 <style lang="stylus">
-.home
-  overflow-y scroll
+
 </style>

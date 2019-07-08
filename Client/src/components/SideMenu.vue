@@ -74,6 +74,7 @@ export default {
   flex-direction column
   transition-duration 0.3s
   transition-timing-function ease-out
+  overflow-y auto
 .side-menu--hidden
   left -14rem
 .side-menu__item
