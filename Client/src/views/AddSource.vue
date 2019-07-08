@@ -3,14 +3,30 @@
     <Error />
     <div class="add-source__header">Dodaj źródło feedu</div>
     <form class="add-source__form" @submit.prevent="handleSubmit">
-      <input class="add-source__input" type="text" name="url" placeholder="URL" v-model="url">
-      <input class="add-source__input" type="text" name="feedname" placeholder="Nazwa" v-model="name">
-      <input type="text" class="add-source__input" list="category" v-model="category">
+      <input
+        class="add-source__input"
+        type="text"
+        name="url"
+        placeholder="URL"
+        v-model="url"
+        v-validate="'required|url'"
+      >
+      <input
+        class="add-source__input"
+        type="text"
+        name="feedname"
+        placeholder="Nazwa"
+        v-model="name"
+        v-validate="'required'"
+      >
+      <input type="text"
+        class="add-source__input"
+        list="category"
+        placeholder="Kategoria (opcjonalne)"
+        v-model="category"
+      >
       <datalist id="category">
-        <option value=""/>
-        <option value="Kosmos"/>
-        <option value="Technologia"/>
-        <option value="Gry"/>
+        <option v-for="category in categories" :key="category" :value="category"/>
       </datalist>
       <input class="add-source__submit" type="submit" value="Dodaj źródło">
     </form>
@@ -31,19 +47,40 @@ export default {
       url: null,
       name: null,
       category: '',
+      categories: [],
     };
+  },
+  async beforeCreate() {
+    this.categories = await FeedService.getCategories();
+    this.categories.sort();
   },
   methods: {
     async handleSubmit() {
-      const data = {
-        feed: {
-          url: this.url,
-          name: this.name,
-          category: this.category,
-        },
+      const feed = {
+        url: this.url,
+        name: this.name,
+        category: this.category,
       };
-      const result = await FeedService.addSource(data);
-      console.log(result);
+      try {
+        await FeedService.addSource(feed);
+        this.$router.push('/');
+      } catch (error) {
+        const { code } = error;
+        switch (code) {
+          case 'INVALID_FEED_OBJECT':
+            this.errors.add({
+              field: 'feed',
+              msg: 'Nieprawidłowe dane źródła',
+            });
+            break;
+          default:
+            this.errors.add({
+              field: 'feed',
+              msg: 'Nieoczekiwany błąd',
+            });
+            break;
+        }
+      }
     },
   },
 };
@@ -90,25 +127,8 @@ export default {
     -webkit-text-fill-color: cLight;
     -webkit-box-shadow: 0 0 0px 30px cDark inset;
     transition: background-color 5000s ease-in-out 0s;
-.add-source__category
-  display block
-  width 15rem
-  margin-top 1.4rem
-  margin-right auto
-  margin-left auto
-  padding-bottom 0.2rem
-  font-size 1.4rem
-  font-family fMain
-  color cLight
-  background none
-  border none
-  border-bottom 0.05rem solid cLight
-  box-shadow: none;
-  &:focus
-    outline none
-    box-shadow 0 0.4rem 0.3rem -0.3rem rgba(255, 255, 255, 0.3)
-  option
-    background: cDark;
+  &::-webkit-calendar-picker-indicator
+    display none
 .add-source__submit
   margin-top 1.4rem
   background-color transparent
@@ -119,6 +139,7 @@ export default {
   color cLight
   cursor pointer
   margin-top 4rem
+  margin-bottom 2rem
   width 15rem
   border 1px solid cLight
   padding 0.5rem 1rem

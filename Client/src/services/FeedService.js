@@ -1,7 +1,11 @@
 import Api from './Api';
 
 export default {
-  async addSource(source) {
+  addSource(source) {
     return Api().post('feeds', source);
+  },
+  async getCategories() {
+    const result = await Api().get('feeds/categories');
+    return result.data.data.categories;
   },
 };
