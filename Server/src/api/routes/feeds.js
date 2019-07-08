@@ -18,7 +18,11 @@ export default (app) => {
   app.post('/feeds', AuthMiddleware, FeedValidator, async (req, res) => {
     const arg = {
       userId: res.locals.userId,
-      feed: req.body.feed,
+      feed: {
+        url: req.body.url,
+        name: req.body.name,
+        category: req.body.category,
+      },
     };
     try {
       const feed = await FeedsService.addFeed(arg);
@@ -32,6 +36,25 @@ export default (app) => {
         error: {
           code: '',
           message: '',
+        },
+      });
+    }
+  });
+
+  app.get('/feeds/categories', AuthMiddleware, async (req, res) => {
+    try {
+      const categories = await FeedsService.getCategories(res.locals.userId);
+      res.status(200).send({
+        data: {
+          categories,
+        },
+      });      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        error: {
+          code: 'SERVER_ERROR',
+          message: 'Something went wrong',
         },
       });
     }
