@@ -1,23 +1,30 @@
 <template>
   <div id="app" v-touch:swipe.right="toggleMenu(true)" v-touch:swipe.left="toggleMenu(false)">
-    <router-view class="view" v-touch="toggleMenu(false)" @click="toggleMenu(false)"/>
-    <Navbar v-on:toggle-sidemenu="toggleMenu()"/>
+    <router-view class="view" v-touch="hideAll()" @click="hideAll()"/>
+    <Navbar
+      v-on:toggle-sidemenu="toggleMenu()"
+      v-on:toggle-category-picker="toggleCategoryPicker()"
+    />
     <SideMenu v-on:logout="logout"/>
+    <CategoryPicker v-on:toggle-category-picker="toggleCategoryPicker()"/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar';
+import CategoryPicker from '@/components/CategoryPicker';
 import SideMenu from '@/components/SideMenu';
 
 export default {
   components: {
     Navbar,
+    CategoryPicker,
     SideMenu,
   },
   data() {
     return {
       showMenu: false,
+      showCategoryPicker: false,
     };
   },
   watch: {
@@ -32,6 +39,19 @@ export default {
       // Fallback for v-touch
       return () => {
         this.showMenu = param;
+      };
+    },
+    toggleCategoryPicker(param = !this.showCategoryPicker) {
+      this.showCategoryPicker = param;
+      // Fallback for v-touch
+      return () => {
+        this.showCategoryPicker = param;
+      };
+    },
+    hideAll() {
+      return () => {
+        this.showMenu = false;
+        this.showCategoryPicker = false;
       };
     },
     logout() {
