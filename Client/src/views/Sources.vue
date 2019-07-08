@@ -79,6 +79,7 @@ export default {
   margin 0.5rem 0
   background-color #b8b8b8
   color cDark
+  box-shadow 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.3)
 .source__name
   grid-area name
   font-size 1.4rem
