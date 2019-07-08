@@ -10,4 +10,9 @@ async function addFeed(arg) {
   return result;
 }
 
-export default { getAllFeeds, addFeed };
+async function getCategories(userId) {
+  const result = await UserModel.getCategories(userId);
+  return result;
+}
+
+export default { getAllFeeds, addFeed, getCategories };

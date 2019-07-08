@@ -40,4 +40,23 @@ export default (app) => {
       });
     }
   });
+
+  app.get('/feeds/categories', AuthMiddleware, async (req, res) => {
+    try {
+      const categories = await FeedsService.getCategories(res.locals.userId);
+      res.status(200).send({
+        data: {
+          categories,
+        },
+      });      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        error: {
+          code: 'SERVER_ERROR',
+          message: 'Something went wrong',
+        },
+      });
+    }
+  });
 };
