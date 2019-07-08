@@ -1,8 +1,8 @@
 import UserModel from '../models/User';
 
-async function getAllFeeds(userId) {
-  const result = await UserModel.getAllFeeds(userId);
-  return result.data.feeds;
+async function getFeeds(userId, options) {
+  const result = await UserModel.getFeeds(userId, options);
+  return result;
 }
 
 async function addFeed(arg) {
@@ -15,4 +15,4 @@ async function getCategories(userId) {
   return result;
 }
 
-export default { getAllFeeds, addFeed, getCategories };
+export default { getFeeds, addFeed, getCategories };
