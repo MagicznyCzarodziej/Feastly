@@ -53,8 +53,9 @@ UserSchema.statics.addFeed = async function (userId, feed) {
 UserSchema.statics.getCategories = async function (userId) {
   const user = await this.findOne({ _id: mongoose.Types.ObjectId(userId) }, { data: 1 });
   const { feeds } = user.data;
-  const categories = [...new Set(feeds.map(feed => feed.category))];
-  return categories;
+  const categories = new Set(feeds.map(feed => feed.category));
+  categories.delete('');
+  return [...categories];
 };
 
 export default mongoose.model('User', UserSchema);
