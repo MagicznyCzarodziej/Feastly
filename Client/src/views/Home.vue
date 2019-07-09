@@ -62,33 +62,19 @@ export default {
     async getSources() {
       const { category } = this.$route.query;
       this.category = category;
+
       const sources = await FeedSerice.getSources({ category });
       const feeds = [];
-
       await sources.forEach(async (source) => {
         const result = await rss.parseURL(CORS_PROXY + source.url);
-        const items = result.items;
+        const { items } = result;
         items.forEach((item) => {
+          // eslint-disable-next-line
           item.sourceName = source.name;
         });
         feeds.push(...items);
       });
-      
       this.feeds = feeds;
-      // sources.forEach((source) => {
-      //   promises.push(rss.parseURL(CORS_PROXY + source.url));
-      // });
-      // Promise.all(promises).then((result) => {
-      //   console.log(result);
-        
-      //   result.forEach((source) => {
-      //     feeds.push(...source.items);
-      //   });
-      //   feeds.sort((a, b) => {
-      //     return new Date(b.isoDate) - new Date(a.isoDate);
-      //   });
-      //   this.feeds = feeds;
-      // });
     },
   },
 };
