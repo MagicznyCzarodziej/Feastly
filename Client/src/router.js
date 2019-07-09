@@ -26,6 +26,7 @@ export default new Router({
     {
       path: '/sources',
       name: 'Sources',
+      meta: { auth: true },
       component: () => import('./views/Sources.vue'),
     },
     {
