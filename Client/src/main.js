@@ -26,6 +26,12 @@ router.beforeEach((to, from, next) => {
   else next();
 });
 
+// Set tab title
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || 'Feastly';
+  next();
+});
+
 new Vue({
   router,
   store,

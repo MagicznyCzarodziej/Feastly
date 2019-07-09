@@ -11,13 +11,19 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      meta: { auth: true },
+      meta: {
+        title: 'Feastly',
+        auth: true,
+      },
       component: Home,
     },
     {
       path: '/addSource',
       name: 'AddSource',
-      meta: { auth: true },
+      meta: {
+        title: 'Feastly | Dodaj źródło',
+        auth: true,
+      },
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -26,19 +32,28 @@ export default new Router({
     {
       path: '/sources',
       name: 'Sources',
-      meta: { auth: true },
+      meta: {
+        title: 'Feastly | Źródła',
+        auth: true,
+      },
       component: () => import('./views/Sources.vue'),
     },
     {
       path: '/login',
       name: 'Login',
-      meta: { hideInterface: true },
+      meta: {
+        title: 'Feastly | Zaloguj się',
+        hideInterface: true,
+      },
       component: () => import('./views/Login.vue'),
     },
     {
       path: '/register',
       name: 'Register',
-      meta: { hideInterface: true },
+      meta: {
+        title: 'Feastly | Zarejestruj się',
+        hideInterface: true,
+      },
       component: () => import('./views/Register.vue'),
     },
   ],
