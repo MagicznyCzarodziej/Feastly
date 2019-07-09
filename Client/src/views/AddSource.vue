@@ -1,7 +1,6 @@
 <template>
   <div class="add-source">
     <Error />
-    <div class="add-source__header">Dodaj źródło feedu</div>
     <form class="add-source__form" @submit.prevent="handleSubmit">
       <input
         class="add-source__input"
@@ -51,6 +50,10 @@ export default {
     };
   },
   async beforeCreate() {
+    this.$store.dispatch('setHeader', {
+      title: 'Dodaj źródło',
+      sub: '',
+    });
     this.categories = await FeedService.getCategories();
     this.categories.sort();
   },
