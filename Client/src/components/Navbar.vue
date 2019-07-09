@@ -3,7 +3,7 @@
     <div class="navbar__icon" @click="$emit('toggle-sidemenu')">
       <FeatherIcon class="navbar__icon__svg" :icon="'menu'"/>
     </div>
-    <div class="navbar__icon navbar__icon--main">
+    <div class="navbar__icon navbar__icon--main" @click="$emit('toggle-category-picker')">
       <FeatherIcon class="navbar__icon__svg" :icon="'hash'"/>
     </div>
     <div class="navbar__icon">
@@ -30,9 +30,9 @@ export default {
   width 100%
   height 3rem
   background-color #111
+  z-index 9
   display grid
   grid-template-columns auto auto auto
-  box-shadow 0 0rem 0.2rem rgba(0, 0, 0, 0.3);
 .navbar__icon
   text-align center
   cursor pointer
