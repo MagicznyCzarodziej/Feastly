@@ -62,6 +62,5 @@ export default {
   font-size 1.2rem
   padding 0.8rem 0
   cursor pointer
-  &:not(:last-child)
-    border-bottom 0.05rem solid #222
+  border-top 0.05rem solid #222
 </style>
