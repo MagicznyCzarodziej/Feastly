@@ -1,8 +1,5 @@
 <template>
   <div class="sources">
-    <div class="sources-category">
-      Źródła / {{ category ? category : 'Wszystkie' }}
-    </div>
     <div class="sources__list">
       <div class="source" v-for="source in sources" :key="source.name">
         <div class="source__name">
@@ -34,14 +31,22 @@ export default {
     };
   },
   beforeMount() {
+    this.setHeader();
     this.getSources();
   },
   watch: {
     async $route() {
+      this.setHeader();
       this.getSources();
     },
   },
   methods: {
+    setHeader() {
+      this.$store.dispatch('setHeader', {
+        title: 'Źródła',
+        sub: `#${this.$route.query.category || 'Wszystkie'}`,
+      });
+    },
     async getSources() {
       this.category = this.$route.query.category;
       let feeds;

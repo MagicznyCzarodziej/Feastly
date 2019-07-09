@@ -1,5 +1,6 @@
 <template>
   <div id="app" v-touch:swipe.right="toggleMenu(true)" v-touch:swipe.left="toggleMenu(false)">
+    <Header/>
     <router-view class="view" v-touch="hideAll()" @click="hideAll()"/>
     <Navbar
       v-on:toggle-sidemenu="toggleMenu()"
@@ -11,12 +12,14 @@
 </template>
 
 <script>
+import Header from '@/components/Header';
 import Navbar from '@/components/Navbar';
 import CategoryPicker from '@/components/CategoryPicker';
 import SideMenu from '@/components/SideMenu';
 
 export default {
   components: {
+    Header,
     Navbar,
     CategoryPicker,
     SideMenu,
@@ -83,7 +86,7 @@ body
 #app
   height 100%
   display grid
-  grid-template-rows 1fr auto
+  grid-template-rows auto 1fr auto
 .view
   overflow-y scroll
 </style>

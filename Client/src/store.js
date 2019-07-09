@@ -9,6 +9,10 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: !!localStorage.getItem('auth_token'),
     username: localStorage.getItem('username'),
+    header: {
+      title: '',
+      sub: '',
+    },
   },
   mutations: {
     login(state, username) {
@@ -19,6 +23,10 @@ export default new Vuex.Store({
       state.isLoggedIn = false;
       state.username = null;
     },
+    setHeader(state, header) {
+      state.header.title = header.title;
+      state.header.sub = header.sub;
+    },
   },
   actions: {
     login({ commit }, username) {
@@ -27,9 +35,13 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit('logout');
     },
+    setHeader({ commit }, header) {
+      commit('setHeader', header);
+    },
   },
   getters: {
     isLoggedIn: state => state.isLoggedIn,
     username: state => state.username,
+    header: state => state.header,
   },
 });

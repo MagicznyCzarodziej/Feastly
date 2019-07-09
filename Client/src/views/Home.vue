@@ -1,8 +1,5 @@
 <template>
   <div class="home">
-    <div class="feeds__category">
-      Feedy / {{ category ? category : 'Wszystkie' }}
-    </div>
     <div class="feeds__list">
       <a class="feed" v-for="feed in sortedFeeds" :href="feed.link" :key="feed.guid">
         <div class="feed__meta">
@@ -47,6 +44,7 @@ export default {
   },
   watch: {
     async $route() {
+      this.setHeader();
       this.getSources();
     },
   },
@@ -56,9 +54,16 @@ export default {
     },
   },
   async beforeMount() {
+    this.setHeader();
     this.getSources();
   },
   methods: {
+    setHeader() {
+      this.$store.dispatch('setHeader', {
+        title: 'Treści',
+        sub: `#${this.$route.query.category || 'Wszystkie'}`,
+      });
+    },
     async getSources() {
       const { category } = this.$route.query;
       this.category = category;
@@ -83,14 +88,6 @@ export default {
 <style lang="stylus" scoped>
 @import '../styles/variables.styl';
 
-.feeds__category
-  font-size 1.4rem
-  font-weight 100
-  color #eee
-  padding 0.7rem
-  text-align center
-  background-color #222
-  box-shadow 0 0 0.2rem rgba(0,0,0,0.3)
 .feeds__list
   display flex
   flex-direction column
