@@ -1,6 +1,6 @@
 import FeedsService from '../../services/feeds';
 import AuthMiddleware from '../../middleware/auth';
-import { FeedValidator } from '../../middleware/validators';
+import { FeedValidator, FeedIdValidator } from '../../middleware/validators';
 
 export default (app) => {
   // Get all user feeds
@@ -52,6 +52,24 @@ export default (app) => {
       });
     } catch (error) {
       console.log(error);
+      res.status(500).send({
+        error: {
+          code: 'SERVER_ERROR',
+          message: 'Something went wrong',
+        },
+      });
+    }
+  });
+
+  app.delete('/feeds/:id', AuthMiddleware, FeedIdValidator, async (req, res) => {
+    try {
+      const feedId = req.params.id;
+      const { userId } = res.locals;
+      await FeedsService.deleteFeed(userId, feedId);
+      res.status(204).send({
+        data: null,
+      });
+    } catch (error) {
       res.status(500).send({
         error: {
           code: 'SERVER_ERROR',

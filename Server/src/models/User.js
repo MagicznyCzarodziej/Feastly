@@ -58,4 +58,10 @@ UserSchema.statics.getCategories = async function (userId) {
   return [...categories];
 };
 
+UserSchema.statics.deleteFeed = async function (userId, feedId) {
+  const user = await this.findOne({ _id: mongoose.Types.ObjectId(userId) }, { data: 1 });
+  user.data.feeds.pull(mongoose.Types.ObjectId(feedId));
+  user.save();
+};
+
 export default mongoose.model('User', UserSchema);

@@ -15,4 +15,13 @@ async function getCategories(userId) {
   return result;
 }
 
-export default { getFeeds, addFeed, getCategories };
+async function deleteFeed(userId, feedId) {
+  await UserModel.deleteFeed(userId, feedId);
+}
+
+export default {
+  getFeeds,
+  addFeed,
+  getCategories,
+  deleteFeed,
+};

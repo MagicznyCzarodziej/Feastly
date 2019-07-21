@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { checkSchema, validationResult } from 'express-validator';
 import { registrationSchema, loginSchema, feedSchema } from './validationSchemas';
 
@@ -64,4 +65,15 @@ const FeedValidator = [
   },
 ];
 
-export { LoginValidator, RegisterValidator, FeedValidator };
+const FeedIdValidator = (req, res, next) => {
+  if (!Types.ObjectId.isValid(req.params.id)) {
+    res.status(422).send({
+      error: {
+        code: 'FEED_ID_INVALID',
+        message: 'Feed id is invalid',
+      },
+    });
+  } else next();
+};
+
+export { LoginValidator, RegisterValidator, FeedValidator, FeedIdValidator };
