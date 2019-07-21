@@ -12,4 +12,7 @@ export default {
     const result = await Api().get('feeds/categories');
     return result.data.data.categories;
   },
+  deleteSource(sourceId) {
+    return Api().delete(`feeds/${sourceId}`);
+  },
 };

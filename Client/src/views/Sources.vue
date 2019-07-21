@@ -1,28 +1,24 @@
 <template>
   <div class="sources">
     <div class="sources__list">
-      <div class="source" v-for="source in sources" :key="source.name">
-        <div class="source__name">
-          {{ source.name }}
-        </div>
-        <div class="source__url">
-          {{ source.url }}
-        </div>
-        <FeatherIcon class="source__delete" :icon="'trash-2'"></FeatherIcon>
-        <FeatherIcon class="source__edit" :icon="'edit-3'"></FeatherIcon>
-      </div>
+      <Source
+        v-for="source in sources"
+        :key="source._id"
+        :source="source"
+        @deleteSource="deleteSource"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import Source from '@/components/Source';
 import FeedService from '@/services/FeedService';
-import FeatherIcon from '@/components/FeatherIcon';
 
 export default {
   name: 'Sources',
   components: {
-    FeatherIcon,
+    Source,
   },
   data() {
     return {
@@ -54,6 +50,10 @@ export default {
       else feeds = await FeedService.getSources({ category: this.category });
       this.sources = feeds;
     },
+    deleteSource(id) {
+      // eslint-disable-next-line
+      this.sources = this.sources.filter(source => source._id != id);
+    },
   },
 };
 </script>
@@ -74,41 +74,4 @@ export default {
   display flex
   flex-direction column
   padding 1rem 1.5rem
-.source
-  display grid
-  grid-template-areas 'name delete' 'url edit'
-  grid-template-columns auto 2rem
-  grid-row-gap 0.5rem
-  text-align center
-  padding 0.5rem 1rem
-  margin 0.5rem 0
-  background-color #b8b8b8
-  color cDark
-  box-shadow 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.3)
-.source__name
-  grid-area name
-  font-size 1.4rem
-.source__url
-  grid-area url
-  font-size 1rem
-  color #777
-  overflow hidden
-  text-overflow: ellipsis;
-.source__delete
-.source__edit
-  grid-area delete
-  width 1.4rem
-  height 1.4rem
-  align-self center
-  justify-self end
-  stroke #999
-  stroke-width 1.4
-  stroke-linecap round
-  stroke-linejoin round
-  fill none
-  cursor pointer
-.source__delete
-  grid-area delete
-.source__edit
-  grid-area edit
 </style>
